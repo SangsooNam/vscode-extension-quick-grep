@@ -1,6 +1,6 @@
 # VSCode Quick Grep
 
-Git Grep and Ripgrep extension for Visual Studio Code. Easy to see results and navigate with the quick pick view. A selected text will be used to grep by default.
+Git Grep and Ripgrep extension for Visual Studio Code. Easy to search code, see results, and navigate with the quick pick view. A selected text will be used to grep by default.
 
 The default shortcut is `Cmd + E`
 

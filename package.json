@@ -1,7 +1,7 @@
 {
-  "name": "vscode-extension-quick-grep",
+  "name": "vscode-etension-quick-grep",
   "description": "Quick Grep by Git Grep/Ripgrep",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "sangsoonam",
   "private": true,
   "license": "MIT",
