@@ -25,3 +25,9 @@ The default shortcut is `Cmd + E`
   }
 ]
 ```
+
+## Build
+```
+yarn install
+vsce package
+```
