@@ -34,9 +34,3 @@ Otherwise, check [this link](https://github.com/BurntSushi/ripgrep).
   }
 ]
 ```
-
-## Build
-```
-yarn install
-vsce package
-```
