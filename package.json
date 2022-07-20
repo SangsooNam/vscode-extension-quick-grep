@@ -1,8 +1,8 @@
 {
   "name": "vscode-extension-quick-grep",
   "displayName": "Quick Grep",
-  "description": "Git Grep and Ripgrep extension for Visual Studio Code. Easy to search code, see results, and navigate with the quick pick view. A selected text will be used to grep by default.",
-  "version": "0.1.5",
+  "description": "Git Grep and Ripgrep extension for Visual Studio Code. Easy to search code, see results, and navigate with the quick pick view.",
+  "version": "0.1.6",
   "publisher": "sangsoonam",
   "private": true,
   "license": "MIT",
