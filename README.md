@@ -2,7 +2,16 @@
 
 Git Grep and Ripgrep extension for Visual Studio Code. Easy to search code, see results, and navigate with the quick pick view. A selected text will be used to grep by default.
 
-The default shortcut is `Cmd + E`
+The default shortcut is `Cmd + E`. 
+
+**Install Ripgrep**
+
+If you're a macOS Homebrew or a Linuxbrew user,
+```
+brew install ripgrep
+```
+Otherwise, check [this link](https://github.com/BurntSushi/ripgrep).
+
 
 ### Usage
 
