@@ -93,7 +93,7 @@ export function activate(context: vscode.ExtensionContext) {
         quickPick.value = activeTextEditor.document.getText(activeTextEditor.selection);
       }
 
-      const updateItems = debounce(200, (value) => {
+      const updateItems = debounce(400, (value) => {
         quickGrep(value).then((items) => {
           quickPick.items = items as vscode.QuickPickItem[];
         });
