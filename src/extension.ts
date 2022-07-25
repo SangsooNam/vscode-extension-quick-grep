@@ -2,7 +2,7 @@
 import * as vscode from 'vscode';
 import child_process = require('child_process');
 
-const quote = require('shell-quote').quote; 
+const quote = require('shell-quote').quote;
 const rootPath = vscode.workspace.rootPath ? vscode.workspace.rootPath : '.';
 
 function debounce<T extends (...args: any[]) => any>(
