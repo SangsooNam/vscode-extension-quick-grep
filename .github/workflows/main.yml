@@ -30,5 +30,8 @@ jobs:
       - name: Code style check
         run: yarn prettier -c .
 
+      - name: Lint
+        run: yarn lint
+
       - name: Compile
         run: yarn compile
