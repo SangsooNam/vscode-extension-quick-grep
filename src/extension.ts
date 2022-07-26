@@ -25,7 +25,7 @@ function debounce<T extends (...args: any[]) => any>(
 }
 
 const quickGrep = (text: string) => {
-  return new Promise((resolve, _) => {
+  return new Promise((resolve) => {
     if (text.length <= 1) {
       return resolve([]);
     }
@@ -68,7 +68,7 @@ const quickGrep = (text: string) => {
 
 const showDocument = async (item: vscode.QuickPickItem, preserveFocus = false) => {
   const path = item.description;
-  const [_, lineNumber] = item.label.split(' : ');
+  const [, lineNumber] = item.label.split(' : ');
   const options = { preserveFocus: preserveFocus };
   await vscode.window.showTextDocument(vscode.Uri.file(rootPath + '/' + path), options);
   const activeTextEditor = vscode.window.activeTextEditor;
@@ -81,6 +81,9 @@ const showDocument = async (item: vscode.QuickPickItem, preserveFocus = false) =
 };
 
 export function activate(context: vscode.ExtensionContext) {
+  let cacheValue: string;
+  let cacheItems: vscode.QuickPickItem[] = [];
+
   context.subscriptions.push(
     vscode.commands.registerCommand('quickgrep.action', () => {
       const quickPick = vscode.window.createQuickPick();
@@ -89,13 +92,27 @@ export function activate(context: vscode.ExtensionContext) {
       quickPick.placeholder = 'Search';
       const activeTextEditor = vscode.window.activeTextEditor;
 
-      // Search the current selection
-      if (activeTextEditor) {
-        quickPick.value = activeTextEditor.document.getText(activeTextEditor.selection);
+      // Use cache to show the recent results
+      if (cacheValue) {
+        quickPick.value = cacheValue;
+        quickPick.items = cacheItems;
       }
 
-      const updateItems = debounce(400, (value) => {
+      // Search the current selection
+      if (activeTextEditor) {
+        const value = activeTextEditor.document.getText(activeTextEditor.selection);
+        if (value) {
+          quickPick.value = value;
+        }
+      }
+
+      const updateItems = debounce(300, (value) => {
+        if (cacheValue === value) {
+          return;
+        }
         quickGrep(value).then((items) => {
+          cacheValue = value;
+          cacheItems = items as vscode.QuickPickItem[];
           quickPick.items = items as vscode.QuickPickItem[];
         });
       });
@@ -108,7 +125,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
       });
 
-      quickPick.onDidChangeActive(async (val: any) => {
+      quickPick.onDidChangeActive(async (val: readonly vscode.QuickPickItem[]) => {
         if (vscode.workspace.getConfiguration('quickgrep').preview) {
           if (val.length > 0) {
             await showDocument(val[0], true);
