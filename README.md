@@ -15,6 +15,11 @@ Otherwise, check [this link](https://github.com/BurntSushi/ripgrep).
 
 ### Usage
 
+- Trigger `Cmd + E` to open the Quick Grep
+- Type a text to search. If there is a selected text in the editor, that text will be used for searching.
+- The last results will be shown by triggering `Cmd + E` again without a selected text. It's a handy way to continue browsing.
+- Optionally, you can enable the preview setting to see the file content while browsing search results.
+
 ![Usage](images/usage.gif)
 
 ## Extension Settings
