@@ -83,6 +83,7 @@ const showDocument = async (item: vscode.QuickPickItem, preserveFocus = false) =
 export function activate(context: vscode.ExtensionContext) {
   let cacheValue: string;
   let cacheItems: vscode.QuickPickItem[] = [];
+  let cacheActiveItems: readonly vscode.QuickPickItem[] = [];
 
   context.subscriptions.push(
     vscode.commands.registerCommand('quickgrep.action', () => {
@@ -96,6 +97,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (cacheValue) {
         quickPick.value = cacheValue;
         quickPick.items = cacheItems;
+        quickPick.activeItems = cacheActiveItems;
       }
 
       // Search the current selection
@@ -126,6 +128,7 @@ export function activate(context: vscode.ExtensionContext) {
       });
 
       quickPick.onDidChangeActive(async (val: readonly vscode.QuickPickItem[]) => {
+        cacheActiveItems = val;
         if (vscode.workspace.getConfiguration('quickgrep').preview) {
           if (val.length > 0) {
             await showDocument(val[0], true);
