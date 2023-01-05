@@ -84,8 +84,15 @@ export function activate(context: vscode.ExtensionContext) {
   let cacheValue: string;
   let cacheItems: vscode.QuickPickItem[] = [];
   let cacheActiveItems: readonly vscode.QuickPickItem[] = [];
+  let documentUpdated: boolean;
 
   context.subscriptions.push(
+    vscode.workspace.onDidSaveTextDocument(()=> {
+      documentUpdated = true;
+    }),
+    vscode.workspace.onDidDeleteFiles(()=> {
+      documentUpdated = true;
+    }),
     vscode.commands.registerCommand('quickgrep.action', () => {
       const quickPick = vscode.window.createQuickPick();
       quickPick.matchOnDescription = false;
@@ -109,9 +116,10 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       const updateItems = debounce(300, (value) => {
-        if (cacheValue === value) {
+        if (!documentUpdated && cacheValue === value) {
           return;
         }
+        documentUpdated = false;
         quickGrep(value).then((items) => {
           cacheValue = value;
           cacheItems = items as vscode.QuickPickItem[];
