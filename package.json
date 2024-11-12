@@ -2,7 +2,7 @@
   "name": "vscode-extension-quick-grep",
   "displayName": "Quick Grep",
   "description": "Git Grep and Ripgrep extension for Visual Studio Code. Easy to search code, see results, and navigate with the quick pick view.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "sangsoonam",
   "private": true,
   "license": "MIT",
@@ -37,6 +37,11 @@
       "type": "object",
       "title": "Quick Grep",
       "properties": {
+        "quickgrep.caseInsensitive": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show matches regardless of their lower or upper case letters."
+        },
         "quickgrep.preview": {
           "type": "boolean",
           "default": false,

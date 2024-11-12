@@ -31,9 +31,10 @@ const quickGrep = (text: string) => {
     }
 
     const useGitGrep = vscode.workspace.getConfiguration('quickgrep').grep === 'Git Grep';
+    const caseOption = vscode.workspace.getConfiguration('quickgrep').caseInsensitive ? '-i' : '';
     const command = useGitGrep
-      ? quote(['git', 'grep', '-H', '-n', '-i', '-I', '--no-color', '-F', '-e', text])
-      : quote(['rg', '--no-heading', '--line-number', '--color', 'never', '-F', text, '--', '.']);
+      ? quote(['git', 'grep', '-H', '-n', caseOption, '-I', '--no-color', '-F', '-e', text])
+      : quote(['rg', caseOption, '--no-heading', '--line-number', '--color', 'never', '-F', text, '--', '.']);
 
     child_process.exec(command, { cwd: rootPath, maxBuffer: 4000 * 1024 }, (err: any, stdout: any, stderr: any) => {
       if (stderr) {
